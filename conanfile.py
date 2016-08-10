@@ -28,14 +28,14 @@ class bgfxConan(ConanFile):
 	
 	def _fetch_zip(self, url, final_name):
 		
-		# Split the filename part off of "https://.../foo-master.zip"
+		# Split the filename part off of "https://.../foo/archive/master.zip"
 		(dirname, filename) = os.path.split(url)
 		if url.startswith("file://"):
 			shutil.copy(url[7:], filename)
 		else:
 			tools.download(url, filename)
 		tools.unzip(filename)
-		shutil.move(filename.replace(".zip", ""), final_name)
+		shutil.move(final_name + "-" + filename.replace(".zip", ""), final_name)
 		os.unlink(filename)
 		
 	
@@ -147,7 +147,6 @@ class bgfxConan(ConanFile):
 				self.copy("*bgfx*", dst="lib64", src="bgfx/.build/osx64_clang/bin")
 		
 		self.copy("*.h", dst="include", src="bgfx/include")
-		self.copy("*.h", dst="3rdparty", src="bgfx/3rdparty")
 		
 		
 
