@@ -33,6 +33,7 @@ class bgfxConan(ConanFile):
 		if url.startswith("file://"):
 			shutil.copy(url[7:], filename)
 		else:
+			print "Downloading %s..." % url
 			tools.download(url, filename)
 		tools.unzip(filename)
 		shutil.move(final_name + "-" + filename.replace(".zip", ""), final_name)
@@ -147,6 +148,7 @@ class bgfxConan(ConanFile):
 				self.copy("*bgfx*", dst="lib64", src="bgfx/.build/osx64_clang/bin")
 		
 		self.copy("*.h", dst="include", src="bgfx/include")
+		self.copy("*.h", dst="includE", src="bx/include")
 		
 		
 
